@@ -1,2 +1,2 @@
-export const primaryColor = "#5cb646"
-export const secondaryColor = "#0000"
+export const primaryColor = "#0000"
+export const secondaryColor = "#808080"

@@ -4,6 +4,7 @@ import { Filter, TransactionDTO } from "./../Models/transactionTDO";
 import { Transactions } from "../Entities/transaction";
 import { CustomError } from "../Error/customError";
 import { tokenGenerator, functions } from "../Services/instances";
+import dayjs from "dayjs";
 
 export class TransactionsBusiness {
   public createTransaction = async (
@@ -16,6 +17,7 @@ export class TransactionsBusiness {
       if (!username || !value) {
         throw new MissingCredentials();
       }
+
       const data = tokenGenerator.tokenData(token);
 
       await functions.isValidTransaction(value, data.id, username);
@@ -29,6 +31,10 @@ export class TransactionsBusiness {
       const data = tokenGenerator.tokenData(token);
 
       const user = await functions.findUserById(data.id);
+
+      if (user.id !== data.id) {
+        throw new Unauthorized();
+      }
 
       const id = user.accountId;
 
@@ -46,7 +52,26 @@ export class TransactionsBusiness {
         },
       });
 
-      return movement;
+      if (!movement) {
+        throw new Error("It wasn't possible obtain the history");
+      }
+
+      const transactions = movement.map((data) => {
+        var localizedFormat = require("dayjs/plugin/localizedFormat");
+        dayjs.extend(localizedFormat);
+        const date = dayjs(data.createdAt).format("L");
+        const newObject = {
+          id: data.id,
+          creditAccount: data.creditedAccountId,
+          debitAccount: data.debitedAccountId,
+          value: data.value,
+          createdAt: date,
+        };
+
+        return newObject;
+      });
+
+      return transactions;
     } catch (error: any) {
       throw new CustomError(400, error.message);
     }
@@ -63,6 +88,10 @@ export class TransactionsBusiness {
 
       const user = await functions.findUserById(data.id);
 
+      if (user.id !== data.id) {
+        throw new Unauthorized();
+      }
+
       const id = user.accountId;
 
       const movementDebit = await AppDataSource.getRepository(
@@ -71,6 +100,24 @@ export class TransactionsBusiness {
         where: {
           debitedAccountId: id,
         },
+        order: {
+          createdAt: "DESC",
+        },
+      });
+
+      const debitTransaction = movementDebit.map((data: Transactions) => {
+        var localizedFormat = require("dayjs/plugin/localizedFormat");
+        dayjs.extend(localizedFormat);
+        const date = dayjs(data.createdAt).format("L");
+        const newObject = {
+          id: data.id,
+          creditAccount: data.creditedAccountId,
+          debitAccount: data.debitedAccountId,
+          value: data.value,
+          createdAt: date,
+        };
+
+        return newObject;
       });
 
       const movementCredit = await AppDataSource.getRepository(
@@ -79,12 +126,29 @@ export class TransactionsBusiness {
         where: {
           creditedAccountId: id,
         },
+        order: {
+          createdAt: "DESC",
+        },
+      });
+      const creditTransaction = movementCredit.map((data: Transactions) => {
+        var localizedFormat = require("dayjs/plugin/localizedFormat");
+        dayjs.extend(localizedFormat);
+        const date = dayjs(data.createdAt).format("L");
+        const newObject = {
+          id: data.id,
+          creditAccount: data.creditedAccountId,
+          debitAccount: data.debitedAccountId,
+          value: data.value,
+          createdAt: date,
+        };
+
+        return newObject;
       });
 
       if (filter === "debit") {
-        return movementDebit;
+        return debitTransaction;
       } else {
-        return movementCredit;
+        return creditTransaction;
       }
     } catch (error: any) {
       throw new CustomError(400, error.message);

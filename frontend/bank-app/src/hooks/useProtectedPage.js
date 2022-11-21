@@ -5,9 +5,9 @@ export const useProtectedPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const authorization = localStorage.getItem("authorization");
+    const authorization =  localStorage.getItem('authorization');
 
-    if (authorization === null) {
+    if (!authorization) {
       navigate("/user/login");
     }
   }, [navigate]);

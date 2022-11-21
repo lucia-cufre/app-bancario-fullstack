@@ -89,6 +89,11 @@ export class UserBusiness {
     }
 
     const token = tokenGenerator.generateToken(user.id);
+    const validToken = tokenGenerator.tokenData(token);
+
+    if (validToken.id !== user.id) {
+      throw new Unauthorized();
+    }
 
     return token;
   };
@@ -109,8 +114,11 @@ export class UserBusiness {
       if (!account) {
         throw new UserNotFound();
       }
+      if (account.id !== data.id) {
+        throw new Unauthorized();
+      }
 
-      return account.account.balance;
+      return account.account;
     } catch (error: any) {
       throw new CustomError(400, error.message);
     }

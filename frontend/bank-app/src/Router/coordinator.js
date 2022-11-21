@@ -1,3 +1,7 @@
+export const initialPage = (navigate) => {
+    navigate("/")
+}
+
 export const goToLogin = (navigate) => {
     navigate("/user/login")
 }

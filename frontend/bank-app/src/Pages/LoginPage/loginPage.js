@@ -7,7 +7,7 @@ import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import { goToAccountPage, goToSignUp } from "../../Router/coordinator";
 
-const LoginPage = () => {
+function LoginPage() {
   const navigate = useNavigate();
 
   const { form, onChange, cleanFields } = useForm({
@@ -25,9 +25,9 @@ const LoginPage = () => {
     axios
       .post(url, body)
       .then((res) => {
-        localStorage.setItem("authorization", res.data.access_token);
-        console.log(res)
-        goToAccountPage(navigate);
+        localStorage.setItem("jwt", res.data.access_token);
+        console.log(res.data.access_token);
+        goToAccountPage(navigate)
       })
       .catch((err) => {
         alert("Credencias invalidas.");
@@ -42,8 +42,7 @@ const LoginPage = () => {
 
   return (
     <Container>
-      <h1>NG-Cash</h1>
-      <p>Entrar</p>
+      <img width= "100vh" alt="Logo da NG.Cash" src="https://ngcash.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F811701d4-7239-4286-bab8-a8bc585aaaff%2Flogo_ng.png?table=block&id=223de32e-1ed0-47f2-aa90-cc0da84754ee&spaceId=6f9b2303-1422-45c0-a306-a5a53110fd01&width=250&userId=&cache=v2"/>
       <form onSubmit={submit}>
         <InputsContainer>
           <TextField
@@ -86,13 +85,13 @@ const LoginPage = () => {
             onClick={() => goToSignUp(navigate)}
             size="small"
             color={"inherit"}
-          >
+            >
             Não possui cadastro? Clique aqui.
           </Button>
         </ButtonContainer>
-      </form>
+            </form>
     </Container>
   );
-};
+}
 
 export default LoginPage;

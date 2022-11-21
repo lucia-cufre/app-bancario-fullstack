@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { goToAccountPage } from "../../Router/coordinator";
+import { goToLogin } from "../../Router/coordinator";
 import { useForm } from "../../hooks/useForm";
 import { BASE_URL } from "../../Constants/base_URL";
 import axios from "axios";
@@ -7,7 +7,7 @@ import { Container, InputsContainer } from "./styles";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 
-const SignUpPage = () => {
+function SignUpPage() {
   const { form, onChange, cleanFields } = useForm({
     username: "",
     password: "",
@@ -25,10 +25,8 @@ const SignUpPage = () => {
     axios
       .post(url, body)
       .then((res) => {
-        localStorage.setItem("token", res.data.token);
-        console.log(res.data.token);
         alert("Cadastro realizado com sucesso.");
-        goToAccountPage(navigate);
+        goToLogin(navigate);
       })
       .catch((err) => {
         alert("Erro ao cadastrar usuário.");
@@ -42,10 +40,10 @@ const SignUpPage = () => {
 
   return (
     <Container>
-      <h1>NG-Cash</h1>
-
-      <p>Cadastrar</p>
-
+      <br/>
+      <br/>
+      <img width= "100vh" alt="Logo da NG.Cash" src="https://ngcash.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F811701d4-7239-4286-bab8-a8bc585aaaff%2Flogo_ng.png?table=block&id=223de32e-1ed0-47f2-aa90-cc0da84754ee&spaceId=6f9b2303-1422-45c0-a306-a5a53110fd01&width=250&userId=&cache=v2"/>
+      <p>Cadastro</p>
       <form onSubmit={submit}>
         <InputsContainer>
           <TextField
@@ -87,6 +85,6 @@ const SignUpPage = () => {
       </form>
     </Container>
   );
-};
+}
 
 export default SignUpPage;

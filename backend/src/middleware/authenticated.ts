@@ -1,4 +1,4 @@
-import { Unauthorized } from "./../Error/generalErrors";
+
 import { tokenGenerator } from "./../Services/instances";
 import { Request, Response, NextFunction } from "express";
 import { AuthenticationData } from "../Services/tokenGenerator";

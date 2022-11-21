@@ -6,7 +6,7 @@ import { UserNotFound } from "../Error/userError";
 import { idGenerator } from "./instances";
 import { Transactions } from "../Entities/transaction";
 import { CustomError } from "../Error/customError";
-
+import { Unauthorized } from "../Error/generalErrors";
 
 export class Functions extends User {
   public findUserByUsername = async (input: string) => {
@@ -100,7 +100,7 @@ export class Functions extends User {
       if (!account) {
         throw new Error("Account does not exists.");
       }
-      const newBalance = Number(account.balance) + value;
+      const newBalance = Number(account.balance) + Number(value);
       const result = await repository
         .createQueryBuilder()
         .update({
@@ -122,6 +122,12 @@ export class Functions extends User {
       const userCredit = await this.findUserByUsername(username);
       if (!userCredit) {
         throw new UserNotFound();
+      }
+      if (userDebit.id === userCredit.id) {
+        throw new Error("Is not possible make a transaction to yourself.");
+      }
+      if (userDebit.id !== id) {
+        throw new Unauthorized();
       }
       const transaction = AppDataSource.getRepository(Transactions).create({
         id: transactionId,
