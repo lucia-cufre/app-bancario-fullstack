@@ -1,0 +1,44 @@
+### Sign Up
+
+POST http://localhost:3003/ng-cash/user/signup
+Content-Type: application/json
+
+{
+    "username": "Laura",
+    "password": "Casa1237"
+}
+
+### Login
+
+POST http://localhost:3003/ng-cash/user/login
+Content-Type: application/json
+
+{
+    "username": "lorena",
+    "password": "Casa1236"
+}
+
+### Get Balance 
+
+GET http://localhost:3003/ng-cash/user/balance
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI4ZmQyYzk2LTUzNTEtNDM1YS05N2M0LTJlOWFjNzVkNGM2ZCIsImlhdCI6MTY2ODk2MDA1MCwiZXhwIjoxNjY5MDQ2NDUwfQ.ZZpA1bhmhtYOZ-9JZfQmDlOS8EuBZpFyafzUUe9e-A4
+### Transaction
+
+POST http://localhost:3003/ng-cash/transactions/
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMDI1YWNhLTM0MWUtNGJiNS05NThkLWIwOWFhZTA1OGU4OCIsImlhdCI6MTY2ODk5Mjk4MCwiZXhwIjoxNjY5MDc5MzgwfQ.upmBdAuJuQiN5qHn-Q0SWY6tWq8PTNjH-k3dVxYjOPQ
+Content-Type: application/json
+
+{
+    "username": "Manuela",
+    "value": 70
+}
+
+### Get All Transactions 
+
+GET http://localhost:3003/ng-cash/transactions/
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI4ZmQyYzk2LTUzNTEtNDM1YS05N2M0LTJlOWFjNzVkNGM2ZCIsImlhdCI6MTY2ODkwODc0MSwiZXhwIjoxNjY4OTk1MTQxfQ.mPwLkwPGcqb8Wz8sxnfd5wNLrKgMepkG3BDDafebsX0
+
+### Get Filter Transactions
+
+GET http://localhost:3003/ng-cash/transactions/filter/?sort=debit
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI4ZmQyYzk2LTUzNTEtNDM1YS05N2M0LTJlOWFjNzVkNGM2ZCIsImlhdCI6MTY2ODk1NDAxNywiZXhwIjoxNjY5MDQwNDE3fQ.85scynCFSqeAm_g6wHDPlw1dlLBMmjEU8oVISXpcOSo
