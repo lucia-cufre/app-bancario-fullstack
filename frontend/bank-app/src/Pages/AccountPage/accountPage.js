@@ -4,7 +4,6 @@ import { axiosConfig, BASE_URL } from "../../Constants/base_URL";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { goToLogin } from "../../Router/coordinator";
-import { useProtectedPage } from "../../hooks/useProtectedPage";
 import { useForm } from "../../hooks/useForm";
 import { Box, Container } from "@mui/system";
 import {
@@ -21,7 +20,6 @@ import { ButtonContainer, InputsContainer } from "./styles";
 import FilterTransactions from "../../Components/filterTransactions";
 
 function AccountPage() {
-  useProtectedPage();
   const [balance, setBalance] = useState({});
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -31,8 +29,7 @@ function AccountPage() {
     username: "",
     value: "",
   });
-  
- 
+
   useEffect(() => {
     getBalance();
     getTransactions();
@@ -63,7 +60,6 @@ function AccountPage() {
     axios
       .get(url, axiosConfig)
       .then((res) => {
-        console.log(res.data.transactions);
         setTransactions(res.data.transactions);
         setIsLoading(false);
       })
@@ -75,15 +71,19 @@ function AccountPage() {
   };
 
   const makeTransaction = () => {
-    const url = `${BASE_URL}/transactions`;
+    const url = `${BASE_URL}/transactions/`;
     const body = {
       username: form.username,
       value: form.value,
     };
 
     axios
-      .post(url, body, axiosConfig)
-      .then((res) => {
+      .post(url, body, {
+        headers: {
+          Authorization: localStorage.getItem("jwt"),
+        },
+      })
+      .then(() => {
         alert("Transação feita.");
         cleanFields();
       })
@@ -94,12 +94,16 @@ function AccountPage() {
       });
   };
 
+  const submit = () => {
+    cleanFields();
+  };
+
   const changeFilter = (event) => {
     setFilter(event.target.value);
   };
 
-  const Logout = () => {
-    localStorage.clear();
+  const handleLogout = () => {
+    localStorage.removeItem("jwt");
     goToLogin(navigate);
   };
 
@@ -108,59 +112,81 @@ function AccountPage() {
       {isLoading && <p>Carregando..</p>}
       {
         <div>
-          <p onClick={Logout}>Logout</p>
+          <p onClick={handleLogout}>Logout</p>
           <br />
           <h2>Saldo da conta</h2>
           <h3>R$ {balance.balance}</h3>
           <br />
-          <form>
-            <Box
-              component="form"
-              sx={{
-                "& .MuiTextField-root": {
-                  m: 1,
-                  width: "20ch",
-                  padding: "10px",
-                  margin: "0px",
-                },
-              }}
-              validate
-              autoComplete="off"
-            >
-              <p>REALIZAR TRANSAÇÃO</p>
-              <InputsContainer>
-                <TextField
-                  name={"username"}
-                  value={form.username}
-                  onChange={onChange}
-                  placeholder="username"
-                  required
-                  pattern={"^.{3,}"}
-                />
-                <TextField
-                  type="number"
-                  name={"value"}
-                  value={form.value}
-                  onChange={onChange}
-                  placeholder="Valor a depositar"
-                  required
-                />
-              </InputsContainer>
-              <ButtonContainer>
-                <Button color="secondary" onClick={makeTransaction}>
-                  Depositar
-                </Button>
-              </ButtonContainer>
-            </Box>
-          </form>
           <div>
-          <form>
-            <select value={filter} onChange={changeFilter}>
-              <option value="">Nenhum</option>
-              <option value="debit">Saldo debitado</option>
-              <option value="credit">Saldo recebido</option>
-            </select>
-          </form>
+            <form onSubmit={submit}>
+            <p>REALIZAR TRANSAÇÃO</p>
+            <input
+                    name={"username"}
+                    value={form.username}
+                    onChange={onChange}
+                    placeholder="username"
+                    required
+                    pattern={"^.{3,}"}
+                  />
+                  <input
+                    type="number"
+                    name={"value"}
+                    value={form.value}
+                    onChange={onChange}
+                    placeholder="Valor a depositar"
+                    required
+                  />
+                  <button onClick={makeTransaction}>
+                    Depositar
+                  </button>
+             {/*  <Box
+                component="form"
+                sx={{
+                  "& .MuiTextField-root": {
+                    m: 1,
+                    width: "20ch",
+                    padding: "10px",
+                    margin: "0px",
+                  },
+                }}
+                validate
+                autoComplete="off"
+              >
+                <p>REALIZAR TRANSAÇÃO</p>
+                <InputsContainer>
+                  <TextField
+                    name={"username"}
+                    value={form.username}
+                    onChange={onChange}
+                    placeholder="username"
+                    required
+                    pattern={"^.{3,}"}
+                  />
+                  <TextField
+                    type="number"
+                    name={"value"}
+                    value={form.value}
+                    onChange={onChange}
+                    placeholder="Valor a depositar"
+                    required
+                  />
+                </InputsContainer>
+                <ButtonContainer>
+                  <Button color="secondary" onClick={makeTransaction}>
+                    Depositar
+                  </Button>
+                </ButtonContainer>
+              </Box> */}
+            </form>
+          </div>
+          <div>
+            <form>
+              <select value={filter} onChange={changeFilter}>
+                <option value="">Nenhum</option>
+                <option value="debit">Saldo debitado</option>
+                <option value="credit">Saldo recebido</option>
+              </select>
+            </form>
           </div>
           {filter ? (
             <FilterTransactions filterType={filter} />

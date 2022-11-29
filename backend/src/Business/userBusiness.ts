@@ -89,11 +89,6 @@ export class UserBusiness {
     }
 
     const token = tokenGenerator.generateToken(user.id);
-    const validToken = tokenGenerator.tokenData(token);
-
-    if (validToken.id !== user.id) {
-      throw new Unauthorized();
-    }
 
     return token;
   };

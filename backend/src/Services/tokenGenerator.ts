@@ -6,16 +6,9 @@ export type AuthenticationData = {
 };
 
 export class Authenticator {
-  public getUnsafeTokenData = (token: string): AuthenticationData => {
-    const tokenData = jwt.decode(token) as any;
-    return {
-      id: tokenData.id,
-    };
-  };
-
   public generateToken = (id: string) => {
     const token = jwt.sign({ id }, process.env.JWT_KEY as string, {
-      expiresIn: "24h",
+      expiresIn: 86400000,
     });
     return token;
   };

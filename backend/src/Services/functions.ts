@@ -149,7 +149,7 @@ export class Functions extends User {
   ) => {
     try {
       const balance = await this.findBalanceById(id);
-      if (value <= 0) throw new Error("Invalid value");
+      if (value === 0) throw new Error("Invalid value");
 
       if (balance <= 0 || value > balance) {
         throw new OutOfCash();

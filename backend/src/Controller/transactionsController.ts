@@ -41,9 +41,12 @@ export class TransactionController {
   public getFilteredTransactions = async (req: Request, res: Response) => {
     try {
       const token = req.headers.authorization as string;
-      const filter = req.query.sort as Filter
+      const filter = req.query.sort as Filter;
 
-      const transactions = await transactionBusiness.getFilteredTransactions(token, filter);
+      const transactions = await transactionBusiness.getFilteredTransactions(
+        token,
+        filter
+      );
 
       res.status(200).send({ transactions });
     } catch (error: any) {
@@ -52,6 +55,4 @@ export class TransactionController {
         .send(error.message || error.sqlMessage);
     }
   };
-
-
 }
