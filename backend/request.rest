@@ -14,31 +14,32 @@ POST http://localhost:3003/ng-cash/user/login
 Content-Type: application/json
 
 {
-    "username": "lorena",
-    "password": "Casa1236"
+    "username": "Laura",
+    "password": "Casa1237"
 }
 
 ### Get Balance 
 
 GET http://localhost:3003/ng-cash/user/balance
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI4ZmQyYzk2LTUzNTEtNDM1YS05N2M0LTJlOWFjNzVkNGM2ZCIsImlhdCI6MTY2ODk2MDA1MCwiZXhwIjoxNjY5MDQ2NDUwfQ.ZZpA1bhmhtYOZ-9JZfQmDlOS8EuBZpFyafzUUe9e-A4
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc1MjA2M2VkLTIzYmQtNGNmYy05MjgxLTk5YmQ1MDU1OGRjZCIsImlhdCI6MTY2OTc2MDY3NiwiZXhwIjoxNjY5ODQ3MDc2fQ.6i5e0TZZga3_bpytoukKuVJFphD68eI97-KFiuRRCc8
+
 ### Transaction
 
-POST http://localhost:3003/ng-cash/transactions/
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMDI1YWNhLTM0MWUtNGJiNS05NThkLWIwOWFhZTA1OGU4OCIsImlhdCI6MTY2ODk5Mjk4MCwiZXhwIjoxNjY5MDc5MzgwfQ.upmBdAuJuQiN5qHn-Q0SWY6tWq8PTNjH-k3dVxYjOPQ
+POST http://localhost:3003/ng-cash/transactions
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM5ZWE3ZjUyLTI0M2MtNGZhZS04Njg1LWQ5YTM4MjM1ZmMxMSIsImlhdCI6MTY2OTc2NDQ0MCwiZXhwIjoxNzU2MTY0NDQwfQ.O0bYnmPymyaEUfCYWmR_ESugJKXGY50wGW1on-7FMA4
 Content-Type: application/json
 
 {
-    "username": "Manuela",
-    "value": 70
+    "username": "Pepe",
+    "value": 80
 }
 
 ### Get All Transactions 
 
 GET http://localhost:3003/ng-cash/transactions/
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI4ZmQyYzk2LTUzNTEtNDM1YS05N2M0LTJlOWFjNzVkNGM2ZCIsImlhdCI6MTY2ODkwODc0MSwiZXhwIjoxNjY4OTk1MTQxfQ.mPwLkwPGcqb8Wz8sxnfd5wNLrKgMepkG3BDDafebsX0
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMDI1YWNhLTM0MWUtNGJiNS05NThkLWIwOWFhZTA1OGU4OCIsImlhdCI6MTY2ODk5Mjk4MCwiZXhwIjoxNjY5MDc5MzgwfQ.upmBdAuJuQiN5qHn-Q0SWY6tWq8PTNjH-k3dVxYjOPQ
 
 ### Get Filter Transactions
 
 GET http://localhost:3003/ng-cash/transactions/filter/?sort=debit
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI4ZmQyYzk2LTUzNTEtNDM1YS05N2M0LTJlOWFjNzVkNGM2ZCIsImlhdCI6MTY2ODk1NDAxNywiZXhwIjoxNjY5MDQwNDE3fQ.85scynCFSqeAm_g6wHDPlw1dlLBMmjEU8oVISXpcOSo
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMDI1YWNhLTM0MWUtNGJiNS05NThkLWIwOWFhZTA1OGU4OCIsImlhdCI6MTY2ODk5Mjk4MCwiZXhwIjoxNjY5MDc5MzgwfQ.upmBdAuJuQiN5qHn-Q0SWY6tWq8PTNjH-k3dVxYjOPQ

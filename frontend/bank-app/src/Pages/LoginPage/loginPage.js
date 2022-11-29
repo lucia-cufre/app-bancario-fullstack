@@ -26,7 +26,6 @@ function LoginPage() {
       .post(url, body)
       .then((res) => {
         localStorage.setItem("jwt", res.data.access_token);
-        console.log(res.data.access_token);
         goToAccountPage(navigate)
       })
       .catch((err) => {

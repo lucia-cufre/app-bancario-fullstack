@@ -19,7 +19,7 @@ export class TransactionsBusiness {
       }
 
       const data = tokenGenerator.tokenData(token);
-
+       
       await functions.isValidTransaction(value, data.id, username);
     } catch (error: any) {
       throw new CustomError(400, error.message);
