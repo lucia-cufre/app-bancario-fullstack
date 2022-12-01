@@ -10,8 +10,8 @@ Uma vez logado o cliente pode visualizar seu saldo que já comeca com R$100; vis
 
 Como iniciar o aplicativo:
 - Rodar comando npm install em ambos servidores.
-- Iniciar servidor backend ingressando na pasta app-web-fullstack/backend comando npm run dev
-- Iniciar servidor frontend ingressando na pasta app-web-fullstack/frontend/bank-app comando npm start
+- Iniciar servidor backend ingressando na pasta app-bancario-fullstack/backend comando npm run dev
+- Iniciar servidor frontend ingressando na pasta app-bancario-fullstack/frontend/bank-app comando npm start
 - Obs.: o desenho do front end esta pensado para dispositivos mobile.
 
 
