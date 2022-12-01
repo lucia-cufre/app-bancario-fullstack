@@ -1,4 +1,4 @@
-# Criado para participação no processo seletivo da NG.CASH
+# Projeto full-stack, dockerizado, criado para participação no processo seletivo da NG.CASH
 
 Aplicativo bancario onde é pissivel se cadastrar e fazer login. 
 Uma vez logado é possivel visualizar seu saldo que já comeca com R$100; ver uma tabela de suas transacoes as quais podem ser filtradas por saldo debitado e saldo creditado, e realizar uma transferencia a outro usuario que tambem tenha conta no mesmo banco.
