@@ -8,7 +8,7 @@ Uma vez logado é possivel visualizar seu saldo que já comeca com R$100; ver um
 - Iniciar servidor frontend ingressando na pasta app-web-fullstack/frontend/bank-app comando npm start
 - O desenho do front end esta pensado para dispositivos mobile.
 
-* Tecnologias: 
+ *Tecnologias: 
 - Javascript, Node.js, TypeORM para o servidor back-end. 
 - Javascript, React,js, Material UI para o servidor front-end.
 - Projeto dockerizado.
